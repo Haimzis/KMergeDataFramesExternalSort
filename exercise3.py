@@ -21,8 +21,8 @@ class MultiProcessDFExternalSorting:
 
     def sort_chunks(self):
         pool = Pool(processes=self.no_processes)
-        res = [_ for _ in pool.imap(self.sort_and_save, self.chunk_generator())]
-        print(res)
+        for _ in pool.imap(self.sort_and_save, self.chunk_generator()):
+            pass
 
     def sort_and_save(self, chunk_generator):
         i, df = chunk_generator
