@@ -17,5 +17,5 @@
 *Exercise2*: First, I'm reading all the data chunk by chunk, where each one has a size of 2k rows.
 the next level is to sort each chunk of data, and save it to a different file with a unique id. (chunk id)
 the final stage is to use a heapq, as a max heap - I'm loading each row of the minimal value of data from all the files.
-and then, I'm using pop() and saves this row in the final csv, if the file is empty -> it get closed, or else the next minimal value get pushed to the max heap - repeat.
+and then, I'm using pop() and saves this row in the final csv, if the file is empty -> it get closed, or else the next minimal value get pushed to the max heap - repeat.  
 *Exercise3*: Same Idea as exercise2, but the usage of Multiprocessing.Pool - each shard of 2k dataframe rows get sorted by a worker.  
