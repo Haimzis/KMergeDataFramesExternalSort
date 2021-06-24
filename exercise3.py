@@ -8,7 +8,7 @@ from multiprocessing import Pool
 
 
 class MultiProcessDFExternalSorting:
-    def __init__(self, no_processes, filename, buffer_size_):
+    def __init__(self, no_processes: int, filename: str, buffer_size_: int):
         self.tempdir = tempfile.mkdtemp()
         self.no_processes = no_processes
         self.buffer_size_ = buffer_size_
@@ -19,18 +19,18 @@ class MultiProcessDFExternalSorting:
         for i, df in enumerate(reader):
             yield i, df
 
-    def sort_chunks(self):
+    def sort_chunks(self) -> None:
         pool = Pool(processes=self.no_processes)
         for _ in pool.imap(self.sort_and_save, self.chunk_generator()):
             pass
 
-    def sort_and_save(self, chunk_generator):
+    def sort_and_save(self, chunk_generator) -> None:
         i, df = chunk_generator
         # df = pd.read_csv(os.path.join(self.tempdir, f'sorted_{i}.csv'))
         df.sort_values('data', inplace=True)
         df.to_csv(os.path.join(self.tempdir, f'sorted_{i}.csv'), header=False, index=False)
 
-    def sort_by_min_heap(self, output_file):
+    def sort_by_min_heap(self, output_file: str) -> None:
         min_heap = []
         heapq.heapify(min_heap)
 
@@ -53,7 +53,7 @@ class MultiProcessDFExternalSorting:
                     min_element[2].close()
 
     @timer
-    def external_sort(self, output_file):
+    def external_sort(self, output_file: str) -> None:
         self.sort_chunks()
         self.sort_by_min_heap(output_file)
 

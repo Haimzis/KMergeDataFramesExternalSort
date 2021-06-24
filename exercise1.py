@@ -3,7 +3,7 @@ from utils import timer
 
 
 @timer
-def simple_sorting(data_path):
+def simple_sorting(data_path: str):
     df = pd.read_csv(data_path)
     sorted_df = df.sort_values(['data'])
     return sorted_df
